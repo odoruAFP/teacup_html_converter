@@ -17,7 +17,7 @@ teacup掲示板固有のディレクトリやAタグ、パンくずリストの�
 htmlファイルと画像ファイル、サムネイルのディフォルトのディレクトリは下記のとおりです。<br>
 ┌──html<br>
 ├──image_library<br>
-        └thmubnails<br>
+          └thmubnails<br>
 
 各関数の説明は下記のとおりです。<br>
 conv_breadcrumbs関数<br>
