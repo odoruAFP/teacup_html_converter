@@ -10,7 +10,7 @@ teacup掲示板固有のディレクトリやAタグ、パンくずリストの�
 取得したhtmlファイルは、もっとも書き込みが古いものから3桁のゼロインデックスでファイル名をつける前提で作ってあります。<br>
 例)<br>
 最も古いhtmlファイル名：odoruAFP_(000).html<br>
-最も新しいhtmlファイル名:odoruAFP_(999).html<br>
+最も新しいhtmlファイル名：odoruAFP_(999).html<br>
 <br>
 ディフォルトでパンくずリストは9リンク（新しいもの4リンクと古いもの5リンク）+前後1ページ分を生成します。<br>
 <br>
@@ -32,13 +32,13 @@ conv_image_directory関数<br>
 decode_url_link関数<br>
 　teacup掲示板では、フィッシングサイトへの誘導を回避するために書き込み内に記述されたURLに直接リンクさせないための記述が追加されています。また、2バイト文字はURLエンコードされています。それらを適切に変換して直接リンクされるように変換します。<br>
 <br> 
-conv_thread_directory<br>
+conv_thread_directory関数<br>
 　掲示板内でスレッドを作成した場合に適切にリンクできるように変換します。<br>
 <br>
-conv_return_bbs_directory<br>
+conv_return_bbs_directory関数<br>
 　スレッドから掲示板へ戻ることができるようにhtmlを変換します。<br>
 <br> 
-conv_html_title<br>
+conv_html_title関数<br>
 　掲示板のタイトルを変換します。<br>
 <br>
 <br>
