@@ -101,16 +101,23 @@ def decode_url_link(html_encoded_str:str):
     to_find_a_tag_http_str = 'A HREF="/' + MY_BBS_NAME + '/bbs?M=JU&amp;JUR=http%3A%2F%2F'
     to_find_a_tag_https_str = 'A HREF="/' + MY_BBS_NAME + '/bbs?M=JU&amp;JUR=https%3A%2F%2F'
     to_find_a_tag_old_http_str = 'A HREF="http://' + MY_BBS_NUM + '.teacup.com/' + MY_BBS_NAME + '/bbs?M=JU&amp;JUR=http%3A%2F%2F'
-       
+    to_find_a_tag_old_https_str = 'A HREF="http://' + MY_BBS_NUM + '.teacup.com/' + MY_BBS_NAME + '/bbs?M=JU&amp;JUR=https%3A%2F%2F'   
+
     if to_find_a_tag_https_str in html_encoded_str:
         init_value_to_find = html_encoded_str.find(to_find_a_tag_https_str)
         shift_value = 33
+
     elif to_find_a_tag_http_str in html_encoded_str:
         init_value_to_find = html_encoded_str.find(to_find_a_tag_http_str)
         shift_value = 33
-    else:
+
+    elif to_find_a_tag_old_http_str in html_encoded_str:
         init_value_to_find = html_encoded_str.find(to_find_a_tag_old_http_str)
-        shift_value = 55        
+        shift_value = 55
+
+    else:
+        init_value_to_find = html_encoded_str.find(to_find_a_tag_old_https_str)
+        shift_value = 55
         
     first_description = html_encoded_str[:init_value_to_find + 8]
     html_decoded_str = first_description + urllib.parse.unquote(html_encoded_str[init_value_to_find + shift_value:])
@@ -136,9 +143,9 @@ def conv_return_bbs_directory(data:str):
 
 def conv_html_title(data:str):
     if '</h1><br></P>' in data:
-        data = '<P><h1>test</h1><br></P>'
+        data = '<P><h1>（アーカイブ版）test bbs1</h1><br></P>'
     else:
-        data = '<P><h1>test2</h1><br>'
+        data = '<P><h1>（アーカイブ版）test bbs2</h1><br>'
 
     return data
 
@@ -162,15 +169,10 @@ for html_file_index in range(TOTAL_VOLUME_HTML_FILES):
                     data=f.readline()
                     data = conv_breadcrumbs(html_file_index)
                     f2.write(data)
-                elif '<A HREF="/' + MY_BBS_NAME + '/bbs?M=JU&amp;JUR=https%3A%2F%2F' in data:
+                elif '/bbs?M=JU&amp;JUR=http' in data:
                     data = decode_url_link(data)
-                    f2.write(data)
-                elif '<A HREF="/' + MY_BBS_NAME + '/bbs?M=JU&amp;JUR=http%3A%2F%2F' in data:
-                    data = decode_url_link(data)
-                    f2.write(data)
-                elif '<A HREF="http://' + MY_BBS_NUM + '.teacup.com/' + MY_BBS_NAME + '/bbs?M=JU&amp;JUR=http%3A%2F%2F' in data:
-                    data = decode_url_link(data)
-                    f2.write(data)                
+                    # link_cnt += 1
+                    f2.write(data)                                   
                 elif '<li>◇<a href="/' + MY_BBS_NAME + '/bbs/t' in data:
                     data = conv_thread_directory(data)
                     f2.write(data)               
